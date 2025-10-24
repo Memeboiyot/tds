@@ -551,9 +551,7 @@ function TimeWaveWait(Wave, Min, Sec, InWave, Debug)
         :WaitForChild('ReactGameNewRewards')
         :WaitForChild('Frame')
         :WaitForChild('gameOver') -- end result
-    local RSTimer = ReplicatedStorage:WaitForChild('State')
-        :WaitForChild('Timer')
-        :WaitForChild('Time') -- Current game's timer
+    local RSTimer = game:GetService("Players").LocalPlayer.PlayerGui.ReactGameIntermission.Frame.top.timer.time
     if MatchGui then
         return true
     end
@@ -564,7 +562,7 @@ function TimeWaveWait(Wave, Min, Sec, InWave, Debug)
             return false
         end
     until tonumber(GameWave.Text) == Wave and CheckTimer(InWave) --CheckTimer will return true when in wave and false when not in wave
-    if RSTimer.Value - TotalSec(Min, Sec) < -1 then
+    if RSTimer.Text - TotalSec(Min, Sec) < -1 then
         return true
     end
     local Timer = 0
@@ -573,7 +571,7 @@ function TimeWaveWait(Wave, Min, Sec, InWave, Debug)
         if MatchGui.Visible or CurrentCount ~= StratXLibrary.RestartCount then
             return false
         end
-        Timer = RSTimer.Value - TotalSec(Min, Sec) --math.abs(ReplicatedStorage.State.Timer.Time.Value - TotalSec(Min,Sec))
+        Timer = RSTimer.Text - TotalSec(Min, Sec) --math.abs(ReplicatedStorage.State.Timer.Time.Value - TotalSec(Min,Sec))
     until Timer <= 1
     --until (ReplicatedStorage.State.Timer.Time.Value + 1 == TotalSec(Min,Sec) or ReplicatedStorage.State.Timer.Time.Value == TotalSec(Min,Sec))
     task.wait(TimePrecise(Sec))
