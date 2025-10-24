@@ -1041,15 +1041,7 @@ if CheckPlace() then
                                 )
                         end
                         repeat
-                            game:GetService('TweenService')
-                                :Create(
-                                    LocalPlayer.Character:FindFirstChild(
-                                        'HumanoidRootPart'
-                                    ),
-                                    TweenInfo.new(0.5, Enum.EasingStyle.Linear),
-                                    { CFrame = Object.CFrame }
-                                )
-                                :Play()
+                           
                             task.wait(0.5)
                         until Object.CFrame.Y >= 200
                             or not LocalPlayer.Character:FindFirstChild(
