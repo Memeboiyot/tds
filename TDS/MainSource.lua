@@ -699,11 +699,7 @@ if CheckPlace() then
     local RSHealthMax = ReplicatedStorage:WaitForChild('State')
         :WaitForChild('Health')
         :WaitForChild('Max') -- your max hp
-    local VoteGUI = LocalPlayer.PlayerGui
-        :WaitForChild('ReactOverridesVote')
-        :WaitForChild('Frame')
-        :WaitForChild('votes')
-        :WaitForChild('vote') -- it is what it is
+    
     local MatchGui = LocalPlayer.PlayerGui
         :WaitForChild('ReactGameRewards')
         :WaitForChild('Frame')
@@ -755,63 +751,9 @@ if CheckPlace() then
             TimerCheck = false
         end
     end)
-    if VoteGUI:WaitForChild('prompt').Text == 'Ready?' then --Event GameMode
-        task.spawn(function()
-            repeat
-                task.wait()
-            until StratXLibrary.Executed
-            RemoteFunction:InvokeServer('Voting', 'Skip')
-            prints('Ready Signal Fired')
-        end)
-    end
+ 
     StratXLibrary.ReadyState = false
-    StratXLibrary.VoteState = VoteGUI:GetPropertyChangedSignal('Position')
-        :Connect(function()
-            if
-                VoteGUI:WaitForChild('count').Text
-                ~= `0/{#Players:GetChildren()} Required`
-            then
-                repeat
-                    task.wait()
-                until VoteGUI:WaitForChild('count').Text
-                    == `0/{#Players:GetChildren()} Required`
-            end
-            if VoteGUI.Position ~= UDim2.new(0.5, 0, 0.5, 0) then --UDim2.new(scale_x, offset_x, scale_y, offset_y)
-                return
-            end
-            local currentPrompt = VoteGUI:WaitForChild('prompt').Text
-            if
-                currentPrompt == 'Ready?'
-                or currentPrompt == 'Skip Cutscene?'
-            then --Event GameMode
-                task.wait(2)
-                RemoteFunction:InvokeServer('Voting', 'Skip')
-                StratXLibrary.ReadyState = true
-                if currentPrompt == 'Ready?' then
-                    prints('Ready Signal Fired')
-                elseif currentPrompt == 'Skip Cutscene?' then
-                    prints('Skipped Cutscene')
-                end
-                return
-            end
-            if not UtilitiesConfig.AutoSkip then
-                repeat
-                    task.wait()
-                    if
-                        VoteGUI:WaitForChild('count').Text
-                        ~= `0/{#Players:GetChildren()} Required`
-                    then
-                        return
-                    end
-                until UtilitiesConfig.AutoSkip
-            end
-            if currentPrompt == 'Skip Wave?' then
-                RemoteFunction:InvokeServer('Voting', 'Skip')
-                SetActionInfo('Skip', 'Total')
-                SetActionInfo('Skip')
-                ConsoleInfo(`Skipped Wave {tonumber(GameWave.Text)}`)
-            end
-        end)
+  
 
     task.spawn(function()
         --repeat task.wait() until Workspace.Map:FindFirstChild("Environment"):FindFirstChild("SpawnLocation")
