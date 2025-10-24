@@ -8,7 +8,7 @@ end
 
 local Version = 'Version: 0.3.21 [Alpha]'
 local Items = {
-    Enabled = false,
+    Enabled = true,
     Name = { 'Bell', 'Lorebook' },
 }
 
@@ -357,13 +357,15 @@ function SaveUtilitiesConfig()
                     then tostring(getgenv().WebhookLink)
                     else '',
             HideUser = WebSetting.flags.HideUser or false,
-            PlayerInfo = if type(WebSetting.flags.PlayerInfo) == 'boolean'
+            PlayerInfo = if type(WebSetting.flags.PlayerInfo)
+                    == 'boolean'
                 then WebSetting.flags.PlayerInfo
                 else true,
             GameInfo = if type(WebSetting.flags.GameInfo) == 'boolean'
                 then WebSetting.flags.GameInfo
                 else true,
-            TroopsInfo = if type(WebSetting.flags.TroopsInfo) == 'boolean'
+            TroopsInfo = if type(WebSetting.flags.TroopsInfo)
+                    == 'boolean'
                 then WebSetting.flags.TroopsInfo
                 else true,
             DisableCustomLog = if type(WebSetting.flags.DisableCustomLog)
@@ -552,7 +554,7 @@ function TimeWaveWait(Wave, Min, Sec, InWave, Debug)
     local RSTimer = ReplicatedStorage:WaitForChild('State')
         :WaitForChild('Timer')
         :WaitForChild('Time') -- Current game's timer
-    if Debug or tonumber(GameWave.Text) > Wave and not MatchGui.Visible then
+    if MatchGui then
         return true
     end
     local CurrentCount = StratXLibrary.CurrentCount
@@ -998,7 +1000,8 @@ if CheckPlace() then
                 prints('GameOver Changed1')
                 if
                     not (
-                        UtilitiesConfig.RestartMatch or StratXLibrary.RejoinLobby
+                        UtilitiesConfig.RestartMatch
+                        or StratXLibrary.RejoinLobby
                     )
                 then
                     repeat
@@ -1224,7 +1227,6 @@ end
 --UI Setup
 --getgenv().PlayersSection = {}
 if not CheckPlace() then
-
     UI.EquipStatus = maintab:DropSection('Troops Loadout Status')
     UI.TowersStatus = {
         [1] = UI.EquipStatus:Section('Empty'),
@@ -1429,49 +1431,37 @@ WebSetting:Toggle(
     'Enabled',
     { default = UtilitiesConfig.Webhook.Enabled or false, flag = 'Enabled' }
 )
-WebSetting:Toggle(
-    'Apply New Format',
-    {
-        default = UtilitiesConfig.Webhook.UseNewFormat or false,
-        flag = 'UseNewFormat',
-    }
-)
+WebSetting:Toggle('Apply New Format', {
+    default = UtilitiesConfig.Webhook.UseNewFormat or false,
+    flag = 'UseNewFormat',
+})
 WebSetting:Section('Webhook Link:                             ')
 WebSetting:TypeBox(
     'Webhook Link',
     { default = UtilitiesConfig.Webhook.Link, cleartext = false, flag = 'Link' }
 )
 if getgenv().FeatureConfig and getgenv().FeatureConfig.CustomLog then
-    WebSetting:Toggle(
-        "Disable SL's Custom Log",
-        {
-            default = UtilitiesConfig.Webhook.DisableCustomLog or false,
-            flag = 'DisableCustomLog',
-        }
-    )
+    WebSetting:Toggle("Disable SL's Custom Log", {
+        default = UtilitiesConfig.Webhook.DisableCustomLog or false,
+        flag = 'DisableCustomLog',
+    })
 end
 WebSetting:Toggle(
     'Hide Username',
     { default = UtilitiesConfig.Webhook.HideUser or false, flag = 'HideUser' }
 )
-WebSetting:Toggle(
-    'Player Info',
-    {
-        default = UtilitiesConfig.Webhook.PlayerInfo or false,
-        flag = 'PlayerInfo',
-    }
-)
+WebSetting:Toggle('Player Info', {
+    default = UtilitiesConfig.Webhook.PlayerInfo or false,
+    flag = 'PlayerInfo',
+})
 WebSetting:Toggle(
     'Game Info',
     { default = UtilitiesConfig.Webhook.GameInfo or false, flag = 'GameInfo' }
 )
-WebSetting:Toggle(
-    'Troops Info',
-    {
-        default = UtilitiesConfig.Webhook.TroopsInfo or false,
-        flag = 'TroopsInfo',
-    }
-)
+WebSetting:Toggle('Troops Info', {
+    default = UtilitiesConfig.Webhook.TroopsInfo or false,
+    flag = 'TroopsInfo',
+})
 
 UtilitiesTab:Section('Universal Settings')
 UtilitiesTab:Toggle(
@@ -1493,13 +1483,10 @@ UtilitiesTab:Toggle(
     'Bypass Group Checking',
     { default = UtilitiesConfig.BypassGroup or false, flag = 'BypassGroup' }
 )
-UtilitiesTab:Toggle(
-    'Auto Buy Missing Tower',
-    {
-        default = UtilitiesConfig.AutoBuyMissing or false,
-        flag = 'AutoBuyMissing',
-    }
-)
+UtilitiesTab:Toggle('Auto Buy Missing Tower', {
+    default = UtilitiesConfig.AutoBuyMissing or false,
+    flag = 'AutoBuyMissing',
+})
 UtilitiesTab:Toggle(
     'Auto Restart When Lose',
     { flag = 'RestartMatch', default = UtilitiesConfig.RestartMatch }
