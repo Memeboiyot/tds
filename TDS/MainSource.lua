@@ -13,7 +13,7 @@ local Items = {
 }
 
 local LoadLocal = false
-local MainLink = LoadLocal and "" or "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/TDS/"
+local MainLink = LoadLocal and "" or "https://raw.githubusercontent.com/Memeboiyot/tds/main/TDS/"
 
 local OldTime = os.clock()
 
@@ -563,7 +563,7 @@ if CheckPlace() then
     local RSHealthCurrent = ReplicatedStorage:WaitForChild("State"):WaitForChild("Health"):WaitForChild("Current") -- your current base hp
     local RSHealthMax = ReplicatedStorage:WaitForChild("State"):WaitForChild("Health"):WaitForChild("Max") -- your max hp
     local VoteGUI = LocalPlayer.PlayerGui:WaitForChild("ReactOverridesVote"):WaitForChild("Frame"):WaitForChild("votes"):WaitForChild("vote") -- it is what it is
-    local MatchGui = LocalPlayer.PlayerGui:WaitForChild("ReactGameRewards"):WaitForChild("Frame"):WaitForChild("gameOver") -- end result
+    local MatchGui = LocalPlayer.PlayerGui:WaitForChild("ReactGameNewRewards"):WaitForChild("Frame"):WaitForChild("gameOver") -- end result
 	if #Players:GetChildren() > 1 and getgenv().Multiplayer["Enabled"] == false then
 		TeleportService:Teleport(3260590327, LocalPlayer)
 	end
