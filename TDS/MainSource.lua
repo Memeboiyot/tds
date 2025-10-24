@@ -1571,15 +1571,17 @@ task.spawn(function()
             end
         until StratXLibrary.Strat.ChosenID
     end
-    prints('Selected Strat ID', StratXLibrary.Strat.ChosenID)
-    local Strat = StratXLibrary.Strat[StratXLibrary.Strat.ChosenID]
-   for i,v in next, Functions do
+	prints("Selected Strat ID",StratXLibrary.Strat.ChosenID)
+	local Strat = StratXLibrary.Strat[StratXLibrary.Strat.ChosenID]
+	for i,v in next, Functions do
 		task.spawn(function()
 			if not Strat[i] then
+				repeat task.wait() until Strat[i]
 			end
 			Strat[i].ListNum = 1
 			while true do
 				if Strat[i].ListNum > #Strat[i].Lists then
+					repeat task.wait() until Strat[i].ListNum <= #Strat[i].Lists
 				end
 				if not Strat[i].Lists[Strat[i].ListNum] then
 					Strat[i].ListNum += 1
@@ -1592,9 +1594,6 @@ task.spawn(function()
 		end)
 	end
 end)
-
-prints(
-    `Loaded Library. Took: {math.floor((os.clock() - OldTime) * 1000) / 1000}s`
-)
+prints(`Loaded Library. Took: {math.floor((os.clock() - OldTime)*1000)/1000}s`)
 StratXLibrary.Executed = true
 return Strat.new()
