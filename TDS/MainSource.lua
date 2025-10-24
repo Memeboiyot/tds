@@ -13,7 +13,7 @@ local Items = {
 }
 
 local LoadLocal = false
-local MainLink = LoadLocal and "" or "https://raw.githubusercontent.com/memeboiyoot/tds/main/TDS/"
+local MainLink = LoadLocal and "" or "https://raw.githubusercontent.com/Memeboiyot/tds/main/TDS/"
 
 local OldTime = os.clock()
 
