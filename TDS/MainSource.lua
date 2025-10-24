@@ -529,11 +529,35 @@ function TowersCheckHandler(...)
     return true
 end
 
-function GetTypeIndex(string, Id)
-    if type(string) == 'string' and #string > 0 then
-        return string
-    end
-    return TowersContained[Id].TypeIndex
+function GetTypeIndex(str, Id)
+	if type(str) == "string" and #str > 0 then
+		print("[DEBUG] GetTypeIndex: Using provided string:", str)
+		return str
+	end
+
+	if not TowersContained then
+		warn("[ERROR] TowersContained is nil!")
+		return nil
+	end
+
+	if not Id then
+		warn("[ERROR] Id is nil when calling GetTypeIndex")
+		return nil
+	end
+
+	if not TowersContained[Id] then
+		warn(string.format("[ERROR] TowersContained[%s] does not exist!", tostring(Id)))
+		return nil
+	end
+
+	if not TowersContained[Id].TypeIndex then
+		warn(string.format("[ERROR] TowersContained[%s] missing field 'TypeIndex'", tostring(Id)))
+		print("[DEBUG] TowersContained entry:", TowersContained[Id])
+		return nil
+	end
+
+	print("[DEBUG] GetTypeIndex: Returning TypeIndex for Id:", Id, "=>", TowersContained[Id].TypeIndex)
+	return TowersContained[Id].TypeIndex
 end
 
 function ConvertTimer(number: number)
@@ -686,9 +710,7 @@ if CheckPlace() then
         :WaitForChild('wave')
         :WaitForChild('container')
         :WaitForChild('value') -- Current wave you are on
-    local RSTimer = ReplicatedStorage:WaitForChild('State')
-        :WaitForChild('Timer')
-        :WaitForChild('Time') -- Current game's timer
+    local RSTimer = game:GetService("Players").LocalPlayer.PlayerGui.ReactGameIntermission.Frame.top.timer.time
     local RSMode = ReplicatedStorage:WaitForChild('State'):WaitForChild('Mode') -- Main Modes
     local RSDifficulty = ReplicatedStorage:WaitForChild('State')
         :WaitForChild('Difficulty') -- Survival's gamemodes
