@@ -700,7 +700,6 @@ if CheckPlace() then
         :WaitForChild('Health')
         :WaitForChild('Max') -- your max hp
     
-        #Players:GetChildren() > 1
         and getgenv().Multiplayer['Enabled'] == false
     then
         TeleportService:Teleport(3260590327, LocalPlayer)
