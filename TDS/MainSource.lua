@@ -700,11 +700,6 @@ if CheckPlace() then
         :WaitForChild('Health')
         :WaitForChild('Max') -- your max hp
     
-    local MatchGui = LocalPlayer.PlayerGui
-        :WaitForChild('ReactGameRewards')
-        :WaitForChild('Frame')
-        :WaitForChild('gameOver') -- end result
-    if
         #Players:GetChildren() > 1
         and getgenv().Multiplayer['Enabled'] == false
     then
