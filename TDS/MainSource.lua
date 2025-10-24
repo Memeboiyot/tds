@@ -1628,7 +1628,7 @@ task.spawn(function()
                     Strat[i].ListNum += 1
                     continue
                 end
-                Functions[i](Strat, Strat[i].Lists[Strat[i].ListNum])
+              --  Functions[i](Strat, Strat[i].Lists[Strat[i].ListNum])
                 Strat[i].ListNum += 1
                 task.wait()
             end
