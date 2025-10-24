@@ -1573,22 +1573,26 @@ task.spawn(function()
     end
     prints('Selected Strat ID', StratXLibrary.Strat.ChosenID)
     local Strat = StratXLibrary.Strat[StratXLibrary.Strat.ChosenID]
-    for i, v in next, Functions do
-    	task.spawn(function()
-        [i].ListNum = 1
-            while true do
-           
-                if not Strat[i].Lists[Strat[i].ListNum] then
-                    Strat[i].ListNum += 1
-                    continue
-                end
-                Functions[i](Strat, Strat[i].Lists[Strat[i].ListNum])
-                Strat[i].ListNum += 1
-                task.wait()
-            end
-																							end)
-    end
+   for i,v in next, Functions do
+		task.spawn(function()
+			if not Strat[i] then
+			end
+			Strat[i].ListNum = 1
+			while true do
+				if Strat[i].ListNum > #Strat[i].Lists then
+				end
+				if not Strat[i].Lists[Strat[i].ListNum] then
+					Strat[i].ListNum += 1
+					continue
+				end
+				Functions[i](Strat,Strat[i].Lists[Strat[i].ListNum])
+				Strat[i].ListNum += 1
+				task.wait()
+			end
+		end)
+	end
 end)
+
 prints(
     `Loaded Library. Took: {math.floor((os.clock() - OldTime) * 1000) / 1000}s`
 )
