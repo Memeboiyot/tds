@@ -1021,18 +1021,7 @@ if CheckPlace() then
             while true do
                 for Index, Object in next, Pickups:GetChildren() do
                     if getgenv().DefaultCam ~= 1 then
-                        game:GetService('TweenService')
-                            :Create(
-                                LocalPlayer.Character:FindFirstChild(
-                                    'HumanoidRootPart'
-                                ),
-                                TweenInfo.new(0, Enum.EasingStyle.Linear),
-                                {
-                                    CFrame = StratXLibrary.PlatformPart.CFrame
-                                        + Vector3.new(0, 3.3, 0),
-                                }
-                            )
-                            :Play()
+                     
                         task.wait(0.1)
                     end
                     if
