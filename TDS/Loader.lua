@@ -101,7 +101,7 @@ OldNamecall = hookmetamethod(game, '__namecall', function(...)
     local Self, Args = (...), ({select(2, ...)})
     if getnamecallmethod() == 'HttpGet' then
         if table.find(LinkTable, Args[1]) then
-            Args[1] = "https://raw.githubusercontent.com/memeboiyoot/tds/main/TDS/MainSource.lua"
+            Args[1] = "https://raw.githubusercontent.com/Memeboiyot/tds/main/TDS/MainSource.lua"
             appendlog("Hooked AutoStrat Main Library Using hookmetamethod")
         --[[elseif Args[1] == "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/asjhxnjfdStratFunJoin" then
             Args[1] = "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/CustomJoiningElevators.lua"
@@ -116,7 +116,7 @@ local OldHook
 OldHook = hookfunction(game.HttpGet, function(Self, Url, ...)
     --if Url == "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/ckmhjvskfkmsStratFun2" then
     if table.find(LinkTable, Url) then
-        Url = "https://raw.githubusercontent.com/memeboiyoot/tds/main/TDS/MainSource.lua"
+        Url = "https://raw.githubusercontent.com/Memeboiyot/tds/main/TDS/MainSource.lua"
         appendlog("Hooked AutoStrat Main Library Using hookfunction")
     --[[elseif Url == "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/asjhxnjfdStratFunJoin" then
         Url = "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/CustomJoiningElevators.lua"
