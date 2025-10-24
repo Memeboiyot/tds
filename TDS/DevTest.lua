@@ -244,9 +244,9 @@ if FeatureConfig["StrategiesX"] then
     OldNamecall = hookmetamethod(game, '__namecall', function(...)
         local Self, Args = (...), ({select(2, ...)})
         if getnamecallmethod() == 'HttpGet' then
-            if Args[1] == "https://raw.githubusercontent.com/memeboiyoot/tds/refs/heads/main/blall.lua" then
+            if Args[1] == "https://raw.githubusercontent.com/Memeboiyot/tds/refs/heads/main/blall.lua" then
                 appendlog("Hooked AutoStrat Main Library Using hookmetamethod")
-                Args[1] = "https://raw.githubusercontent.com/memeboiyoot/tds/refs/heads/main/TDS/MainSource.lua"
+                Args[1] = "https://raw.githubusercontent.com/Memeboiyot/tds/refs/heads/main/TDS/MainSource.lua"
             elseif Args[1] == "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/asjhxnjfdStratFunJoin" then
                 appendlog("Hooked AutoStrat Joining Library Using hookmetamethod")
                 Args[1] = "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/CustomJoiningElevators.lua"
@@ -258,9 +258,9 @@ if FeatureConfig["StrategiesX"] then
     end)
     local OldHook
     OldHook = hookfunction(game.HttpGet, function(Self, Url, ...)
-        if Url == "https://raw.githubusercontent.com/memeboiyoot/tds/refs/heads/main/blall.lua" then
+        if Url == "https://raw.githubusercontent.com/Memeboiyot/tds/refs/heads/main/blall.lua" then
             appendlog("Hooked AutoStrat Main Library Using hookfunction")
-            Url = "https://raw.githubusercontent.com/memeboiyoot/tds/refs/heads/main/TDS/MainSource.lua"
+            Url = "https://raw.githubusercontent.com/Memeboiyot/tds/refs/heads/main/TDS/MainSource.lua"
         elseif Url == "https://raw.githubusercontent.com/banbuskox/dfhtyxvzexrxgfdzgzfdvfdz/main/asjhxnjfdStratFunJoin" then
             appendlog("Hooked AutoStrat Joining Library Using hookfunction")
             Url = "https://raw.githubusercontent.com/Sigmanic/Strategies-X/main/CustomJoiningElevators.lua"
@@ -737,7 +737,7 @@ if not (Config[game:GetService("Players").LocalPlayer.Name] and Config[game:GetS
                 return
             end
             w["object"].Parent.Parent:Destroy()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/memeboiyoot/tds/refs/heads/main/TDS/DevTest.lua", true))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Memeboiyot/tds/refs/heads/main/TDS/DevTest.lua", true))()
         end
     end)
 
@@ -754,7 +754,7 @@ if not (Config[game:GetService("Players").LocalPlayer.Name] and Config[game:GetS
     end)
     w:Button("Re-Execute",function()
         w["object"].Parent.Parent:Destroy()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/memeboiyoot/tds/refs/heads/main/TDS/DevTest.lua", true))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Memeboiyot/tds/refs/heads/main/TDS/DevTest.lua", true))()
     end)
     w:Button("Delete Gui",function()
         w["object"].Parent.Parent:Destroy()
@@ -843,7 +843,7 @@ s:Button("Disable Dev-Test",function()
     FeatureConfig["DevTest"] = false
     writefile("StratLoader/UserConfig/FeatureConfig.txt", cloneref(game:GetService("HttpService")):JSONEncode(FeatureConfig))
     w["object"].Parent.Parent:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/memeboiyoot/tds/refs/heads/main/TDS/Loader.lua, true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Memeboiyot/tds/refs/heads/main/TDS/Loader.lua, true))()
 end)
 s:Button("MeMayBeo Feature")
 
