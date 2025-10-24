@@ -14,9 +14,7 @@ return function(self, p1)
     local Tower = tableinfo["TowerIndex"]
     local Path = tableinfo["PathTarget"]
     local Wave,Min,Sec,InWave = tableinfo["Wave"] or 0, tableinfo["Minute"] or 0, tableinfo["Second"] or 0, tableinfo["InBetween"] or false 
-    if not CheckPlace() then
-        return
-    end
+ 
     local CurrentCount = StratXLibrary.CurrentCount
     SetActionInfo("Upgrade","Total")
     task.spawn(function()
