@@ -546,7 +546,7 @@ function TimeWaveWait(Wave, Min, Sec, InWave, Debug)
         :WaitForChild('container')
         :WaitForChild('value') -- Current wave you are on
     local MatchGui = LocalPlayer.PlayerGui
-        :WaitForChild('ReactGameRewards')
+        :WaitForChild('ReactGameNewRewards')
         :WaitForChild('Frame')
         :WaitForChild('gameOver') -- end result
     local RSTimer = ReplicatedStorage:WaitForChild('State')
