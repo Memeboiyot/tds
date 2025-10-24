@@ -770,13 +770,16 @@ if CheckPlace() then
     end)
 
     --Check if InWave or not
-    StratXLibrary.TimerConnection = RSTimer.Changed:Connect(function(time)
-        if time == 5 then
-            TimerCheck = true
-        elseif time and time > 5 then
-            TimerCheck = false
-        end
-    end)
+StratXLibrary.TimerConnection = RSTimer.Changed:Connect(function(time)
+    time = tonumber(time) or 0  -- safely convert string → number (fallback 0 if invalid)
+
+    if time == 5 then
+        TimerCheck = true
+    elseif time > 5 then
+        TimerCheck = false
+    end
+end)
+
     if VoteGUI:WaitForChild('prompt').Text == 'Ready?' then --Event GameMode
         task.spawn(function()
             repeat
