@@ -14,9 +14,7 @@ return function(self, p1)
     local Tower = tableinfo["TowerIndex"]
     local Wave,Min,Sec,InWave = tableinfo["Wave"] or 0, tableinfo["Minute"] or 0, tableinfo["Second"] or 0, tableinfo["InBetween"] or false 
     local Target = tableinfo["Target"]
-    if not CheckPlace() then
-        return
-    end
+  
     SetActionInfo("Target","Total")
     task.spawn(function()
         if not TimeWaveWait(Wave, Min, Sec, InWave, tableinfo["Debug"]) then
