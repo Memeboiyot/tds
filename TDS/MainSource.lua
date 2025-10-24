@@ -552,9 +552,9 @@ function TimeWaveWait(Wave, Min, Sec, InWave, Debug)
     local RSTimer = ReplicatedStorage:WaitForChild('State')
         :WaitForChild('Timer')
         :WaitForChild('Time') -- Current game's timer
-    if Debug or tonumber(GameWave.Text) > Wave and not MatchGui.Visible then
+   
         return true
-    end
+   
     local CurrentCount = StratXLibrary.CurrentCount
     repeat
         task.wait()
