@@ -382,7 +382,9 @@ function SaveUtilitiesConfig()
 end
 
 function CheckPlace()
-	return if not GameSpoof then (game.PlaceId == 5591597781) else if GameSpoof == "Ingame" then true else false
+    return if not GameSpoof
+        then (game.PlaceId == 5591597781)
+        else if GameSpoof == 'Ingame' then true else false
 end
 loadstring(game:HttpGet(MainLink .. 'TDSTools/LowGraphics.lua', true))()
 
@@ -552,7 +554,7 @@ function TimeWaveWait(Wave, Min, Sec, InWave, Debug)
         :WaitForChild('Timer')
         :WaitForChild('Time') -- Current game's timer
 
-    if Debug  then
+    if Debug then
         return true
     end
 
@@ -1018,7 +1020,6 @@ if CheckPlace() then
             while true do
                 for Index, Object in next, Pickups:GetChildren() do
                     if getgenv().DefaultCam ~= 1 then
-                     
                         task.wait(0.1)
                     end
                     if
@@ -1038,7 +1039,6 @@ if CheckPlace() then
                                 )
                         end
                         repeat
-                           
                             task.wait(0.5)
                         until Object.CFrame.Y >= 200
                             or not LocalPlayer.Character:FindFirstChild(
@@ -1571,25 +1571,131 @@ task.spawn(function()
             end
         until StratXLibrary.Strat.ChosenID
     end
-	prints("Selected Strat ID",StratXLibrary.Strat.ChosenID)
-	local Strat = StratXLibrary.Strat[StratXLibrary.Strat.ChosenID]
-	for i,v in next, Functions do
-		task.spawn(function()
-		
-			Strat[i].ListNum = 1
-			while true do
-			
-				if not Strat[i].Lists[Strat[i].ListNum] then
-					Strat[i].ListNum += 1
-					continue
-				end
-				Functions[i](Strat,Strat[i].Lists[Strat[i].ListNum])
-				Strat[i].ListNum += 1
-				task.wait()
-			end
-		end)
-	end
+    print('[DEBUG] Starting StratXLibrary execution...')
+
+    print('[DEBUG] Selected Strat ID:', StratXLibrary.Strat.ChosenID)
+    local Strat = StratXLibrary.Strat[StratXLibrary.Strat.ChosenID]
+
+    if not Strat then
+        warn('[ERROR] Strat not found for ID:', StratXLibrary.Strat.ChosenID)
+        return
+    end
+
+    if not Functions or type(Functions) ~= 'table' then
+        warn('[ERROR] Functions table is missing or not a table.')
+        return
+    end
+
+    for i, v in next, Functions do
+        task.spawn(function()
+            print(
+                string.format(
+                    "[DEBUG] Starting function '%s' loop...",
+                    tostring(i)
+                )
+            )
+
+            if not Strat[i] then
+                warn(
+                    string.format(
+                        '[WARN] Strat[%s] missing. Waiting for it to exist...',
+                        tostring(i)
+                    )
+                )
+                repeat
+                    task.wait(1)
+                until Strat[i]
+                print(string.format('[DEBUG] Strat[%s] detected.', tostring(i)))
+            end
+
+            if not Strat[i].Lists then
+                warn(
+                    string.format(
+                        "[ERROR] Strat[%s] has no 'Lists' field.",
+                        tostring(i)
+                    )
+                )
+                return
+            end
+
+            Strat[i].ListNum = 1
+            while true do
+                if Strat[i].ListNum > #Strat[i].Lists then
+                    warn(
+                        string.format(
+                            '[DEBUG] Strat[%s].ListNum exceeded list count (%d > %d). Waiting...',
+                            tostring(i),
+                            Strat[i].ListNum,
+                            #Strat[i].Lists
+                        )
+                    )
+                    repeat
+                        task.wait(1)
+                    until Strat[i].ListNum <= #Strat[i].Lists
+                end
+
+                local currentList = Strat[i].Lists[Strat[i].ListNum]
+                if not currentList then
+                    warn(
+                        string.format(
+                            '[WARN] Strat[%s].Lists[%d] missing. Skipping...',
+                            tostring(i),
+                            Strat[i].ListNum
+                        )
+                    )
+                    Strat[i].ListNum += 1
+                    continue
+                end
+
+                if not Functions[i] then
+                    warn(
+                        string.format(
+                            '[ERROR] Functions[%s] missing. Cannot execute.',
+                            tostring(i)
+                        )
+                    )
+                    return
+                end
+
+                print(
+                    string.format(
+                        '[DEBUG] Executing Functions[%s] with ListNum=%d',
+                        tostring(i),
+                        Strat[i].ListNum
+                    )
+                )
+
+                local success, err = pcall(function()
+                    Functions[i](Strat, currentList)
+                end)
+
+                if not success then
+                    warn(
+                        string.format(
+                            '[ERROR] Error running Functions[%s]: %s',
+                            tostring(i),
+                            tostring(err)
+                        )
+                    )
+                else
+                    print(
+                        string.format(
+                            '[DEBUG] Functions[%s] executed successfully.',
+                            tostring(i)
+                        )
+                    )
+                end
+
+                Strat[i].ListNum += 1
+                task.wait()
+            end
+        end)
+    end
 end)
-prints(`Loaded Library. Took: {math.floor((os.clock() - OldTime)*1000)/1000}s`)
+print(
+    string.format('[DEBUG] Loaded Library. Took: %.3fs', os.clock() - OldTime)
+)
 StratXLibrary.Executed = true
+
+print('[DEBUG] StratXLibrary Executed successfully.')
 return Strat.new()
