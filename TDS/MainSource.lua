@@ -382,9 +382,8 @@ function SaveUtilitiesConfig()
 end
 
 function CheckPlace()
-    return if not GameSpoof
-        then (game.PlaceId == 5591597781)
-        else if GameSpoof == 'Ingame' then true else false
+    return true
+  
 end
 
 loadstring(game:HttpGet(MainLink .. 'TDSTools/LowGraphics.lua', true))()
@@ -1577,7 +1576,7 @@ task.spawn(function()
     prints('Selected Strat ID', StratXLibrary.Strat.ChosenID)
     local Strat = StratXLibrary.Strat[StratXLibrary.Strat.ChosenID]
     for i, v in next, Functions do
-        task.spawn(function()
+    
             if not Strat[i] then
                 repeat
                     task.wait()
@@ -1598,7 +1597,7 @@ task.spawn(function()
                 Strat[i].ListNum += 1
                 task.wait()
             end
-        end)
+      
     end
 end)
 prints(
