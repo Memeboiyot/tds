@@ -382,10 +382,8 @@ function SaveUtilitiesConfig()
 end
 
 function CheckPlace()
-    return true
-  
+	return if not GameSpoof then (game.PlaceId == 5591597781) else if GameSpoof == "Ingame" then true else false
 end
-
 loadstring(game:HttpGet(MainLink .. 'TDSTools/LowGraphics.lua', true))()
 
 --[[local GameInfo
