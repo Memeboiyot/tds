@@ -699,11 +699,8 @@ if CheckPlace() then
     local RSHealthMax = ReplicatedStorage:WaitForChild('State')
         :WaitForChild('Health')
         :WaitForChild('Max') -- your max hp
-    
-        and getgenv().Multiplayer['Enabled'] == false
-    then
-        TeleportService:Teleport(3260590327, LocalPlayer)
-    end
+       
+       
     --Disable Auto Skip Feature
     local AutoSkipCheck
     task.spawn(function()
@@ -853,8 +850,7 @@ if CheckPlace() then
             end
         end)
         --End Of Match
-        local Info = MatchGui:WaitForChild('content'):WaitForChild('info')
-        local Rewards = Info:WaitForChild('rewards')
+     
         function CheckReward()
             local RewardType, RewardAmount
 
@@ -910,10 +906,10 @@ if CheckPlace() then
                 StratXLibrary.RestartCount += 1 --need to stop handler, timewavewait
                 task.wait(1)
                 local PlayerInfo = StratXLibrary.UI.PlayerInfo
-                local GetRewardInfo = CheckReward()
+              --  local GetRewardInfo = CheckReward()
                 PlayerInfo.Property[MatchGui:WaitForChild('banner')
                     :WaitForChild('textLabel').Text == 'TRIUMPH!' and 'Triumphs' or 'Loses'] += 1
-                PlayerInfo.Property[GetRewardInfo[1]] += GetRewardInfo[2]
+                --PlayerInfo.Property[GetRewardInfo[1]] += GetRewardInfo[2]
                 --[[for i,v in next, PlayerInfo.Property do
 				PlayerInfo[i].Text = `{i}: {v}`
 			end]]
