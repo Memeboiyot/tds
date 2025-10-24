@@ -8,7 +8,7 @@ end
 
 local Version = 'Version: 0.3.21 [Alpha]'
 local Items = {
-    Enabled = true,
+    Enabled = false,
     Name = { 'Bell', 'Lorebook' },
 }
 
@@ -1224,10 +1224,6 @@ end
 --UI Setup
 --getgenv().PlayersSection = {}
 if not CheckPlace() then
-    ReplicatedStorage:WaitForChild('Network')
-        :WaitForChild('DailySpin')
-        :WaitForChild('RedeemReward')
-        :InvokeServer()
 
     UI.EquipStatus = maintab:DropSection('Troops Loadout Status')
     UI.TowersStatus = {
